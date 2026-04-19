@@ -63,11 +63,18 @@ password_label = Label(text="Password:", font=FONT_tuple)
 password_label.place(x=window_dim_x/4 +label_displacement,
                      y=window_dim_y/4 +entry_y_displacement +spacer_value*3)
 #----
-pass_entry = Entry(width=entry_box_width)
+pass_entry = Entry(width=entry_box_width-20)
 pass_entry.insert(END, "Ex: Password")
 pass_entry.place(x=window_dim_x/4,
                  y=window_dim_y/4 +entry_y_displacement +spacer_value*3)
+####
+def pass_generator():
+    pass
+    #generate a password :)
 
+pg_button = Button(text="Generate Password",width=20,height=20,command=pass_generator)
+pg_button.place(x=window_dim_x/4 + 20,
+                 y=window_dim_y/4 +entry_y_displacement +spacer_value*3)
 
 #===================END:
 window.mainloop()
