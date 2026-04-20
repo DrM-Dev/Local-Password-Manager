@@ -104,12 +104,29 @@ def pass_generator():
     symbols_count_sbox.grid(column=1, row=5)
 
     # _____________
+    resalt_l = Label(pass_gen_window, text="Password:", font=FONT_tuple)
+    resalt_l.grid(column=1, row=6)
+    ####
+    resalt_box = Entry(pass_gen_window, width=20)
+    resalt_box.grid(column=1, row=7)
+
+    # _____________
     def generate():
+        generated_pass = None
+        ####
         nr_letters = letters_count_sbox.get()
         nr_numbers = numbers_count_sbox.get()
         nr_symbols = symbols_count_sbox.get()
+        #  |  #
         #  v  #
-        ADVANCED_Password_Generator.advanced_pass_generator(nr_letters,nr_numbers,nr_symbols)
+        generated_pass = ADVANCED_Password_Generator.advanced_pass_generator(nr_letters,nr_numbers,nr_symbols)
+        #  |  #
+        #  v  #
+        ####
+        resalt_box.insert(END, f"{generated_pass}")
+        resalt_box.grid(column=1, row=7)
+
+
     ##############
     generate_pass_b = Button(pass_gen_window ,text="GENERATE!", width=10,height=2, command=generate)
     generate_pass_b.grid(column=1,row=6)

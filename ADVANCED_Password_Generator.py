@@ -21,7 +21,6 @@ symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+','!', '#', '$', '%', '&', 
 # nr_numbers = int(input(f"How many numbers would you like?\n"))
 # nr_symbols = int(input(f"How many symbols would you like?\n"))
 
-
 def advanced_pass_generator(nr_letters, nr_numbers, nr_symbols):
     global letters
     global numbers
@@ -80,7 +79,6 @@ def advanced_pass_generator(nr_letters, nr_numbers, nr_symbols):
                                                                 #a list of 20letters has only 19 spaces (it starts from 0)
                                                                 # <!><!><!><!><!><!><!><!><!><!><!><!><!><!><!><!><!><!>
 
-
     for assembling_cycle_turns in range(0,assembling_list_amount -1):
         random_items_picker_num = random.randint(0, assembling_list_amount-1)
         items_picked_from_assembly += password_assembling_list[random_items_picker_num]
@@ -90,6 +88,12 @@ def advanced_pass_generator(nr_letters, nr_numbers, nr_symbols):
         #always keep the RANDOMIZER inside the for-loop.so it can RANDOMIZE and change value after each cycle!!
 
 
+    return items_picked_from_assembly
     # print(f"Your generated password is:\n {items_picked_from_assembly}")
     #note: no need to add + between these variables... because the F-string will combine them anyway!
+#_______________________________________________________________________________________________________________________
 
+# #debug
+# input("")
+# gen_pass = advanced_pass_generator(2,2,2)
+# print(gen_pass)
