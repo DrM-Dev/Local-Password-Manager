@@ -78,23 +78,30 @@ def pass_generator():
     ####
     #-------------
     pass_gen_label = Label(pass_gen_window, text="Make your own password with:", font=FONT_tuple)
-    password_label.config(padx=20, pady=20)
+    pass_gen_label.config(padx=20, pady=10)
     pass_gen_label.grid(column=0,row=1)
-    #------------- 
+    #-------------
     grid_spacer_1 = Label(pass_gen_window, text="༻━━━━━━━🔓━━━━━━━༺ ", font=FONT_tuple)
     grid_spacer_1.grid(column=0,row=2)
     # -------------
-    letters_count_l = Label(pass_gen_window, text="How Many Letters?")
+    letters_count_l = Label(pass_gen_window, text="How Many Letters?", font=FONT_tuple)
     letters_count_l.grid(column=0,row=3)
     ####
-    letters_count_sbox = Spinbox(pass_gen_window, width=3, from_=1, to=100)
+    letters_count_sbox = Spinbox(pass_gen_window, width=3, from_=1, to=10)
     letters_count_sbox.grid(column=1,row=3)
     # -------------
-    numbers_count_l = Label(pass_gen_window, text="How Many Numbers?")
+    numbers_count_l = Label(pass_gen_window, text="How Many Numbers?", font=FONT_tuple)
     numbers_count_l.grid(column=0, row=4)
     ####
-    numbers_count_sbox = Spinbox(pass_gen_window, width=3, from_=1, to=100)
+    numbers_count_sbox = Spinbox(pass_gen_window, width=3, from_=1, to=10)
     numbers_count_sbox.grid(column=1, row=4)
+    # -------------
+    symbols_count_l = Label(pass_gen_window, text="How Many Symbols?", font=FONT_tuple)
+    symbols_count_l.grid(column=0, row=5)
+    ####
+    numbers_count_sbox = Spinbox(pass_gen_window, width=3, from_=1, to=10)
+    numbers_count_sbox.grid(column=1, row=5)
+    # -------------
 
 
     #Advanced_Pasword_Generator
