@@ -71,16 +71,34 @@ pass_entry.place(x=window_dim_x/4,
 ####
 def pass_generator():
     pass_gen_window = Tk()
+    pass_gen_window.config(padx=20, pady=20)
     pass_gen_window.title("Generate Your Password")
     pass_gen_window.minsize(300,200)
-    pass_gen_window.maxsize(310,210)
-    #
-    pass_gen_label = Label(pass_gen_window, text="Make your own password with:")
+    # pass_gen_window.maxsize(310,210)
+    ####
+    #-------------
+    pass_gen_label = Label(pass_gen_window, text="Make your own password with:", font=FONT_tuple)
+    password_label.config(padx=20, pady=20)
     pass_gen_label.grid(column=0,row=1)
+    #------------- 
+    grid_spacer_1 = Label(pass_gen_window, text="༻━━━━━━━🔓━━━━━━━༺ ", font=FONT_tuple)
+    grid_spacer_1.grid(column=0,row=2)
+    # -------------
+    letters_count_l = Label(pass_gen_window, text="How Many Letters?")
+    letters_count_l.grid(column=0,row=3)
+    ####
+    letters_count_sbox = Spinbox(pass_gen_window, width=3, from_=1, to=100)
+    letters_count_sbox.grid(column=1,row=3)
+    # -------------
+    numbers_count_l = Label(pass_gen_window, text="How Many Numbers?")
+    numbers_count_l.grid(column=0, row=4)
+    ####
+    numbers_count_sbox = Spinbox(pass_gen_window, width=3, from_=1, to=100)
+    numbers_count_sbox.grid(column=1, row=4)
 
 
     #Advanced_Pasword_Generator
-    ADVANCED_Password_Generator.advanced_pass_generator()
+    # ADVANCED_Password_Generator.advanced_pass_generator()
 
 
 pg_button = Button(text="Generate Password", font=("Times New Roma", 8, "bold"),width=16,height=1,command=pass_generator)
