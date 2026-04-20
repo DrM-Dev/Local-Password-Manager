@@ -1,5 +1,6 @@
 #===================Imports
 from tkinter import *
+import ADVANCED_Password_Generator
 
 #===================Global Constants
 FONT_tuple = ("Courier", 11, "bold")
@@ -69,8 +70,18 @@ pass_entry.place(x=window_dim_x/4,
                  y=window_dim_y/4 +entry_y_displacement +spacer_value*3)
 ####
 def pass_generator():
-    pass
-    #generate a password :)
+    pass_gen_window = Tk()
+    pass_gen_window.title("Generate Your Password")
+    pass_gen_window.minsize(300,200)
+    pass_gen_window.maxsize(310,210)
+    #
+    pass_gen_label = Label(pass_gen_window, text="Make your own password with:")
+    pass_gen_label.grid(column=0,row=1)
+
+
+    #Advanced_Pasword_Generator
+    ADVANCED_Password_Generator.advanced_pass_generator()
+
 
 pg_button = Button(text="Generate Password", font=("Times New Roma", 8, "bold"),width=16,height=1,command=pass_generator)
 pg_button.place(x=window_dim_x/4 + 183,
