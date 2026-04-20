@@ -8,10 +8,10 @@ FONT_tuple = ("Courier", 11, "bold")
 #===================SETUP
 window = Tk()
 window_dim_x = 500
-window_dim_y = 500
+window_dim_y = 600
 window.minsize(window_dim_x,window_dim_y)
 window.title("Local Pass Manager 0.1")
-window.config(padx=20,pady=20)
+window.config(padx=20,pady=30)
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
@@ -103,20 +103,21 @@ def pass_generator():
     symbols_count_sbox = Spinbox(pass_gen_window, width=3, from_=1, to=10)
     symbols_count_sbox.grid(column=1, row=5)
 
-    # _____________
+    # _____________<Pass Entry>
     resalt_l = Label(pass_gen_window, text="Password:", font=FONT_tuple)
-    resalt_l.grid(column=1, row=6)
+    resalt_l.place(x=3,y=135)
     ####
-    resalt_box = Entry(pass_gen_window, width=20)
-    resalt_box.grid(column=1, row=7)
+    resalt_box = Entry(pass_gen_window, width=25)
+    resalt_box.place(x=70,y=135)
 
     # _____________
     def generate():
         generated_pass = None
+        resalt_box.delete(0, END)
         ####
-        nr_letters = letters_count_sbox.get()
-        nr_numbers = numbers_count_sbox.get()
-        nr_symbols = symbols_count_sbox.get()
+        nr_letters = int(letters_count_sbox.get())
+        nr_numbers = int(numbers_count_sbox.get())
+        nr_symbols = int(symbols_count_sbox.get())
         #  |  #
         #  v  #
         generated_pass = ADVANCED_Password_Generator.advanced_pass_generator(nr_letters,nr_numbers,nr_symbols)
@@ -124,17 +125,15 @@ def pass_generator():
         #  v  #
         ####
         resalt_box.insert(END, f"{generated_pass}")
-        resalt_box.grid(column=1, row=7)
-
+        resalt_box.place(x=70, y=135)
 
     ##############
-    generate_pass_b = Button(pass_gen_window ,text="GENERATE!", width=10,height=2, command=generate)
+    generate_pass_b = Button(pass_gen_window ,text="GENERATE!", width=7,height=1, command=generate)
     generate_pass_b.grid(column=1,row=6)
 
-    #Advanced_Pasword_Generator
-    #
-
-
+#__________________________|
+#Advanced_Pasword_Generator Button:
+# pass_generator()
 pg_button = Button(text="Generate Password", font=("Times New Roma", 8, "bold"),width=16,height=1,command=pass_generator)
 pg_button.place(x=window_dim_x/4 + 183,
                  y=window_dim_y/4 +entry_y_displacement +spacer_value*3-3)
