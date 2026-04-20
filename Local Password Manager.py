@@ -83,7 +83,8 @@ def pass_generator():
     #-------------
     grid_spacer_1 = Label(pass_gen_window, text="༻━━━━━━━🔓━━━━━━━༺ ", font=FONT_tuple)
     grid_spacer_1.grid(column=0,row=2)
-    # -------------
+
+    # _____________
     letters_count_l = Label(pass_gen_window, text="How Many Letters?", font=FONT_tuple)
     letters_count_l.grid(column=0,row=3)
     ####
@@ -99,13 +100,22 @@ def pass_generator():
     symbols_count_l = Label(pass_gen_window, text="How Many Symbols?", font=FONT_tuple)
     symbols_count_l.grid(column=0, row=5)
     ####
-    numbers_count_sbox = Spinbox(pass_gen_window, width=3, from_=1, to=10)
-    numbers_count_sbox.grid(column=1, row=5)
-    # -------------
+    symbols_count_sbox = Spinbox(pass_gen_window, width=3, from_=1, to=10)
+    symbols_count_sbox.grid(column=1, row=5)
 
+    # _____________
+    def generate():
+        nr_letters = letters_count_sbox.get()
+        nr_numbers = numbers_count_sbox.get()
+        nr_symbols = symbols_count_sbox.get()
+        #  v  #
+        ADVANCED_Password_Generator.advanced_pass_generator(nr_letters,nr_numbers,nr_symbols)
+    ##############
+    generate_pass_b = Button(pass_gen_window ,text="GENERATE!", width=10,height=2, command=generate)
+    generate_pass_b.grid(column=1,row=6)
 
     #Advanced_Pasword_Generator
-    # ADVANCED_Password_Generator.advanced_pass_generator()
+    #
 
 
 pg_button = Button(text="Generate Password", font=("Times New Roma", 8, "bold"),width=16,height=1,command=pass_generator)
