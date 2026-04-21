@@ -3,6 +3,7 @@ from tkinter import *
 import ADVANCED_Password_Generator
 
 #===================Global Constants
+PASS_GEN_WINDOW_Activation = False #False = 0 = OFF     True = 1 = ON
 generated_pass = 0
 #----
 FONT_tuple = ("Courier", 11, "bold")
@@ -73,6 +74,7 @@ pass_entry.place(x=window_dim_x/4,
                  y=window_dim_y/4 +entry_y_displacement +spacer_value*3)
 ####
 def pass_generator():
+    global PASS_GEN_WINDOW_Activation
     global generated_pass
     #-------------#
     pass_gen_window = Tk()
@@ -127,10 +129,9 @@ def pass_generator():
     set_pass_b.config(state="disabled")
     set_pass_b.place(x=10, y=230)
     #######################################
-
-
     #######################################  PASS-GEN MAIN-BUTTON
     def generate():
+        global PASS_GEN_WINDOW_Activation
         global generated_pass
         # -------------#
         resalt_box.delete(0, END)
@@ -157,18 +158,46 @@ def pass_generator():
     generate_pass_b = Button(pass_gen_window ,text="GENERATE!", width=10,height=1, command=generate)
     generate_pass_b.place(x=10,y=200)
     #######################################
+    # ##############################################################################-CHECKING IF Pass-Generate-Is ACTIVE using [ON-CLOSE] CHECK
+    # CHECK Pass-Gen-WINDOW state:
+    if pass_gen_window.state() == 'normal':
+        PASS_GEN_WINDOW_Activation = True
+        print("\nPASS-GEN-WINDOW ACTIVATED + ")
+        pg_button.config(state="disabled")
+    # if pass_gen_window.state() == 'disabled':  <---------------------NO NEED FOR THIS, it's better to DISABLE the Pass-Gen-Button from the "[ON-CLOSE] CHECK"
+    #     PASS_GEN_WINDOW_Activation = False
+    #     print("\nPASS-GEN-WINDOW NOTTTTT activated - ")
+    #     print(f"confirm -> {PASS_GEN_WINDOW_Activation}")
+
+    #-----------------------------------------------ON-CLOSING FUN
+    def on_closing():
+        global PASS_GEN_WINDOW_Activation
+        PASS_GEN_WINDOW_Activation = False
+        print("PASS-GEN-Window is closing")
+        pg_button.config(state="normal")
+        #----#
+        pass_gen_window.destroy()
+    #------------------------------------------------ON-CLOSING CHECK
+    pass_gen_window.protocol("WM_DELETE_WINDOW", on_closing)
 
 
-#__________________________|
+#______________________________________________________________________________________________________________________|
 #Advanced_Pasword_Generator Button:
-# pass_generator()
 pg_button = Button(text="⚙️Generate Password", font=("Times New Roma", 8, "bold"),width=18,height=1,command=pass_generator)
 pg_button.place(x=window_dim_x/4 + 183,
                  y=window_dim_y/4 +entry_y_displacement +spacer_value*3-3)
+#-----------------
+# pass_generator()
+if PASS_GEN_WINDOW_Activation:
+    pg_button.config(state="disabled")
+else:
+    pg_button.config(state="normal")
 
+#______________________________________________________________________________________________________________________|
 save_data_b = Button(text="💾SAVE", font=("Times New Roma", 10, "bold"), bg="blue", fg="white",width=10,height=3,command=pass_generator)
 save_data_b.place(x=window_dim_x/4 + 200,
                  y=window_dim_y/4 +entry_y_displacement +spacer_value*3+40)
+
 
 #===================END:
 window.mainloop()
