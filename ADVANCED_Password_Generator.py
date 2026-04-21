@@ -79,7 +79,7 @@ def advanced_pass_generator(nr_letters, nr_numbers, nr_symbols):
                                                                 #a list of 20letters has only 19 spaces (it starts from 0)
                                                                 # <!><!><!><!><!><!><!><!><!><!><!><!><!><!><!><!><!><!>
 
-    for assembling_cycle_turns in range(0,assembling_list_amount -1):
+    for assembling_cycle_turns in range(0,assembling_list_amount): #<-------- removed the -1 since this FOR-LOOP can't get you [out of range] error
         random_items_picker_num = random.randint(0, assembling_list_amount-1)
         items_picked_from_assembly += password_assembling_list[random_items_picker_num]
         #|

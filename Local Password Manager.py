@@ -73,7 +73,7 @@ def pass_generator():
     pass_gen_window = Tk()
     pass_gen_window.config(padx=20, pady=20)
     pass_gen_window.title("Generate Your Password")
-    pass_gen_window.minsize(300,200)
+    pass_gen_window.minsize(300,250)
     # pass_gen_window.maxsize(310,210)
     ####
     #-------------
@@ -88,29 +88,29 @@ def pass_generator():
     letters_count_l = Label(pass_gen_window, text="How Many Letters?", font=FONT_tuple)
     letters_count_l.grid(column=0,row=3)
     ####
-    letters_count_sbox = Spinbox(pass_gen_window, width=3, from_=1, to=10)
+    letters_count_sbox = Spinbox(pass_gen_window, width=3, from_=0, to=10)
     letters_count_sbox.grid(column=1,row=3)
     # -------------
     numbers_count_l = Label(pass_gen_window, text="How Many Numbers?", font=FONT_tuple)
     numbers_count_l.grid(column=0, row=4)
     ####
-    numbers_count_sbox = Spinbox(pass_gen_window, width=3, from_=1, to=10)
+    numbers_count_sbox = Spinbox(pass_gen_window, width=3, from_=0, to=10)
     numbers_count_sbox.grid(column=1, row=4)
     # -------------
     symbols_count_l = Label(pass_gen_window, text="How Many Symbols?", font=FONT_tuple)
     symbols_count_l.grid(column=0, row=5)
     ####
-    symbols_count_sbox = Spinbox(pass_gen_window, width=3, from_=1, to=10)
+    symbols_count_sbox = Spinbox(pass_gen_window, width=3, from_=0, to=10)
     symbols_count_sbox.grid(column=1, row=5)
 
     # _____________<Pass Entry>
     resalt_l = Label(pass_gen_window, text="Password:", font=FONT_tuple)
-    resalt_l.place(x=3,y=135)
+    resalt_l.place(x=-2,y=136)
     ####
-    resalt_box = Entry(pass_gen_window, width=25)
-    resalt_box.place(x=70,y=135)
+    resalt_box = Entry(pass_gen_window, width=30)
+    resalt_box.place(x=82,y=135)
 
-    # _____________
+    # __________________________
     def generate():
         generated_pass = None
         resalt_box.delete(0, END)
@@ -125,11 +125,21 @@ def pass_generator():
         #  v  #
         ####
         resalt_box.insert(END, f"{generated_pass}")
-        resalt_box.place(x=70, y=135)
+        resalt_box.place(x=82,y=135)
+
+        # __________________________
+        def set_pass():
+            pass
+
+        # set_pass_l = Label(pass_gen_window,)
 
     ##############
-    generate_pass_b = Button(pass_gen_window ,text="GENERATE!", width=7,height=1, command=generate)
-    generate_pass_b.grid(column=1,row=6)
+    generate_pass_b = Button(pass_gen_window ,text="GENERATE!", width=10,height=1, command=generate)
+    generate_pass_b.place(x=150,y=160)
+    ##############
+    # generate_pass_b = Button(pass_gen_window, text="GENERATE!", width=8, height=1, command=generate)
+    # generate_pass_b.grid(column=1, row=6)
+
 
 #__________________________|
 #Advanced_Pasword_Generator Button:
