@@ -3,6 +3,8 @@ from tkinter import *
 import ADVANCED_Password_Generator
 
 #===================Global Constants
+generated_pass = 0
+#----
 FONT_tuple = ("Courier", 11, "bold")
 
 #===================SETUP
@@ -10,6 +12,7 @@ window = Tk()
 window_dim_x = 500
 window_dim_y = 600
 window.minsize(window_dim_x,window_dim_y)
+window.minsize(window_dim_x+10,window_dim_y+10)
 window.title("Local Pass Manager 0.1")
 window.config(padx=20,pady=30)
 
@@ -70,11 +73,13 @@ pass_entry.place(x=window_dim_x/4,
                  y=window_dim_y/4 +entry_y_displacement +spacer_value*3)
 ####
 def pass_generator():
+    global generated_pass
+    #-------------#
     pass_gen_window = Tk()
     pass_gen_window.config(padx=20, pady=20)
     pass_gen_window.title("Generate Your Password")
-    pass_gen_window.minsize(300,250)
-    # pass_gen_window.maxsize(310,210)
+    pass_gen_window.minsize(390,300)
+    pass_gen_window.maxsize(390,320)
     ####
     #-------------
     pass_gen_label = Label(pass_gen_window, text="Make your own password with:", font=FONT_tuple)
@@ -88,19 +93,19 @@ def pass_generator():
     letters_count_l = Label(pass_gen_window, text="How Many Letters?", font=FONT_tuple)
     letters_count_l.grid(column=0,row=3)
     ####
-    letters_count_sbox = Spinbox(pass_gen_window, width=3, from_=0, to=10)
+    letters_count_sbox = Spinbox(pass_gen_window, width=3, from_=0, to=20)
     letters_count_sbox.grid(column=1,row=3)
     # -------------
     numbers_count_l = Label(pass_gen_window, text="How Many Numbers?", font=FONT_tuple)
     numbers_count_l.grid(column=0, row=4)
     ####
-    numbers_count_sbox = Spinbox(pass_gen_window, width=3, from_=0, to=10)
+    numbers_count_sbox = Spinbox(pass_gen_window, width=3, from_=0, to=20)
     numbers_count_sbox.grid(column=1, row=4)
     # -------------
     symbols_count_l = Label(pass_gen_window, text="How Many Symbols?", font=FONT_tuple)
     symbols_count_l.grid(column=0, row=5)
     ####
-    symbols_count_sbox = Spinbox(pass_gen_window, width=3, from_=0, to=10)
+    symbols_count_sbox = Spinbox(pass_gen_window, width=3, from_=0, to=20)
     symbols_count_sbox.grid(column=1, row=5)
 
     # _____________<Pass Entry>
@@ -108,11 +113,26 @@ def pass_generator():
     resalt_l.place(x=-2,y=136)
     ####
     resalt_box = Entry(pass_gen_window, width=30)
-    resalt_box.place(x=82,y=135)
+    resalt_box.place(x=110,y=135)
 
-    # __________________________
+    #######################################  PASS-SET BUTTON
+    # __________________________SET-PASS:
+    def set_pass():
+        global generated_pass
+        # -------------#
+        pass_entry.delete(0,END)
+        pass_entry.insert(END, f"{generated_pass}")
+    ##############
+    set_pass_b = Button(pass_gen_window, text="SET", width=8, height=1, command=set_pass)
+    set_pass_b.config(state="disabled")
+    set_pass_b.place(x=10, y=220)
+    #######################################
+
+
+    #######################################  PASS-GEN MAIN-BUTTON
     def generate():
-        generated_pass = None
+        global generated_pass
+        # -------------#
         resalt_box.delete(0, END)
         ####
         nr_letters = int(letters_count_sbox.get())
@@ -125,20 +145,18 @@ def pass_generator():
         #  v  #
         ####
         resalt_box.insert(END, f"{generated_pass}")
-        resalt_box.place(x=82,y=135)
-
-        # __________________________
-        def set_pass():
-            pass
-
-        # set_pass_l = Label(pass_gen_window,)
-
-    ##############
+        resalt_box.place(x=110,y=135)
+        #### <!> #### -Activate / Deactivate - PASS-SET BUTTON
+        if len(generated_pass) > 4:
+            ##############
+            set_pass_b.config(state="normal")
+        else:
+            set_pass_b.config(state="disabled")
+    #######################################
+    # __________________________GENERATE:
     generate_pass_b = Button(pass_gen_window ,text="GENERATE!", width=10,height=1, command=generate)
-    generate_pass_b.place(x=150,y=160)
-    ##############
-    # generate_pass_b = Button(pass_gen_window, text="GENERATE!", width=8, height=1, command=generate)
-    # generate_pass_b.grid(column=1, row=6)
+    generate_pass_b.place(x=10,y=200)
+    #######################################
 
 
 #__________________________|
