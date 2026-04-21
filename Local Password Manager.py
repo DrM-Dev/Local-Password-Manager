@@ -125,7 +125,7 @@ def pass_generator():
     ##############
     set_pass_b = Button(pass_gen_window, text="SET", width=8, height=1, command=set_pass)
     set_pass_b.config(state="disabled")
-    set_pass_b.place(x=10, y=220)
+    set_pass_b.place(x=10, y=230)
     #######################################
 
 
@@ -162,9 +162,13 @@ def pass_generator():
 #__________________________|
 #Advanced_Pasword_Generator Button:
 # pass_generator()
-pg_button = Button(text="Generate Password", font=("Times New Roma", 8, "bold"),width=16,height=1,command=pass_generator)
+pg_button = Button(text="⚙️Generate Password", font=("Times New Roma", 8, "bold"),width=18,height=1,command=pass_generator)
 pg_button.place(x=window_dim_x/4 + 183,
                  y=window_dim_y/4 +entry_y_displacement +spacer_value*3-3)
+
+save_data_b = Button(text="💾SAVE", font=("Times New Roma", 10, "bold"), bg="blue", fg="white",width=10,height=3,command=pass_generator)
+save_data_b.place(x=window_dim_x/4 + 200,
+                 y=window_dim_y/4 +entry_y_displacement +spacer_value*3+40)
 
 #===================END:
 window.mainloop()
