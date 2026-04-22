@@ -1,5 +1,6 @@
 #===================Imports
 from tkinter import *
+from tkinter import filedialog
 import ADVANCED_Password_Generator
 
 #===================Global Constants
@@ -28,21 +29,27 @@ window.config(padx=20,pady=30)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
+entry_box_width = 50
+label_displacement = -90
+entry_y_displacement = 90
+label_spacer_value = 184
+spacer_value = 25
+
+#======================Padding:
+for child in window.winfo_children():
+    child.grid_configure(padx=10, pady=15)
+
+
+#======================Input UIs
 canvas = Canvas(width=200, height=210)
 #
 logo_img = PhotoImage(file="logo.png")
 logo_widget = canvas.create_image(200/2, 200/2, image = logo_img)
 #
-canvas.place(x=window_dim_x/4,y=window_dim_y/4) #<-------to center it :)
+canvas.place(x=window_dim_x/4,y=window_dim_y/4-150) #<-------to center it :)
 #to center anything using PLACE! just dived screen size on quarters "4"s
 
 
-#======================Input UIs
-entry_box_width = 50
-label_displacement = -90
-entry_y_displacement = 170
-label_spacer_value = 184
-spacer_value = 25
 
 website_label = Label(text="Website:", font=FONT_tuple)
 website_label.place(x=window_dim_x/4 +label_displacement,
@@ -62,6 +69,29 @@ email_entry = Entry(width=entry_box_width)
 email_entry.insert(END, "Ex: Name@gmail.com")
 email_entry.place(x=window_dim_x/4,
                   y=window_dim_y/4 +entry_y_displacement +spacer_value*2)
+
+#______________________________ SAVE PASS File-browser
+file_path = ""
+
+def browse_n_save():
+    global file_path
+    ####
+    file_path = filedialog.askopenfilename(
+        title="Select A Folder To Save Your Documents",
+        initialdir="/",
+        filetypes=(("Text Files", "*.txt"), ("All Files", "*.*"))
+    )
+
+#### - ####
+browse_save_l = Label(text="Save Location:", font=FONT_tuple)
+browse_save_l.place(x=110,y=235)
+
+browse_save_box = Entry()
+
+browse_save_button = Button()
+
+
+
 
 #______________________________
 password_label = Label(text="Password:", font=FONT_tuple)
@@ -194,9 +224,9 @@ else:
     pg_button.config(state="normal")
 
 #______________________________________________________________________________________________________________________|
-save_data_b = Button(text="💾SAVE", font=("Times New Roma", 10, "bold"), bg="blue", fg="white",width=10,height=3,command=pass_generator)
-save_data_b.place(x=window_dim_x/4 + 200,
-                 y=window_dim_y/4 +entry_y_displacement +spacer_value*3+40)
+save_data_b = Button(text="💾SAVE", font=("Times New Roma", 10, "bold"), bg="blue", fg="white",width=10,height=2,command=pass_generator)
+save_data_b.place(x=window_dim_x/4 + 60,
+                 y=window_dim_y/4 +entry_y_displacement +spacer_value*3+100)
 
 
 #===================END:
