@@ -8,6 +8,14 @@ PASS_GEN_WINDOW_Activation = False #False = 0 = OFF     True = 1 = ON
 generated_pass = 0
 #----
 FONT_tuple = ("Courier", 11, "bold")
+BUTTONS_FONT = ("Times New Roma", 8, "bold")
+
+#===================Global Final Outputs
+website_OUTPUT = ""
+email_OUTPUT = ""
+pass_OUTPUT = ""
+#+#
+path_OUTPUT = ""
 
 #===================SETUP
 window = Tk()
@@ -70,26 +78,32 @@ email_entry.place(x=window_dim_x/4,
                   y=window_dim_y/4 +entry_y_displacement +spacer_value*2)
 
 #______________________________ SAVE PASS File-browser
+#entry must be pre-made before function:
+browse_save_box = Entry(width=50)
+##############
 file_path = ""
 
-def browse_n_save():
+def browse_to_save():
     global file_path
     ####
-    file_path = filedialog.askopenfilename(
-        title="Select A Folder To Save Your Documents",
-        initialdir="/",
-        filetypes=(("Text Files", "*.txt"), ("All Files", "*.*"))
+    file_path = filedialog.askdirectory(
+        title="Select A Folder To Save Your Documents"
     )
+    ####
+    browse_save_box.delete(0, END)
+    browse_save_box.insert(END, f"{file_path}")
 
 #-------
 browse_save_l = Label(text="Save Location:", font=FONT_tuple)
-browse_save_l.place(x=window_dim_x/4-40,y=window_dim_y/4+210)
+browse_save_l.place(x=window_dim_x/4-90,y=window_dim_y/4+210)
 
 #-------
-browse_save_box = Entry()
+browse_save_box.insert(END, "Press BROWSE to select a saving folder")
+browse_save_box.place(x=window_dim_x/4-90,y=window_dim_y/4+235)
 
 #-------
-browse_save_button = Button()
+browse_save_button = Button(text="🔍Browse", font=BUTTONS_FONT,width=12,height=1,command=browse_to_save)
+browse_save_button.place(x=window_dim_x/4+220,y=window_dim_y/4+231)
 
 
 
@@ -109,10 +123,13 @@ def pass_generator():
     global generated_pass
     #-------------#
     pass_gen_window = Tk()
-    pass_gen_window.config(padx=20, pady=20)
+    pass_gen_window.config(padx=30, pady=20)
     pass_gen_window.title("Generate Your Password")
     pass_gen_window.minsize(390,300)
     pass_gen_window.maxsize(390,320)
+    ####
+    for children in pass_gen_window.winfo_children():
+        children.grid_configure(padx=10, pady=10)
     ####
     #-------------
     pass_gen_label = Label(pass_gen_window, text="Make your own password with:", font=FONT_tuple)
@@ -149,6 +166,7 @@ def pass_generator():
     resalt_box.place(x=110,y=135)
 
     #######################################  PASS-SET BUTTON
+    center_pg_buttons = 120
     # __________________________SET-PASS:
     def set_pass():
         global generated_pass
@@ -158,7 +176,7 @@ def pass_generator():
     ##############
     set_pass_b = Button(pass_gen_window, text="SET", width=8, height=1, command=set_pass)
     set_pass_b.config(state="disabled")
-    set_pass_b.place(x=10, y=230)
+    set_pass_b.place(x=25 + center_pg_buttons, y=230)
     #######################################
     #######################################  PASS-GEN MAIN-BUTTON
     def generate():
@@ -187,7 +205,7 @@ def pass_generator():
     #######################################
     # __________________________GENERATE:
     generate_pass_b = Button(pass_gen_window ,text="GENERATE!", width=10,height=1, command=generate)
-    generate_pass_b.place(x=10,y=200)
+    generate_pass_b.place(x=20+center_pg_buttons,y=200)
     #######################################
     # ##############################################################################-CHECKING IF Pass-Generate-Is ACTIVE using [ON-CLOSE] CHECK
     # CHECK Pass-Gen-WINDOW state:
@@ -214,7 +232,7 @@ def pass_generator():
 
 #______________________________________________________________________________________________________________________|
 #Advanced_Pasword_Generator Button:
-pg_button = Button(text="⚙️Generate Password", font=("Times New Roma", 8, "bold"),width=18,height=1,command=pass_generator)
+pg_button = Button(text="⚙️Generate Password", font=BUTTONS_FONT,width=18,height=1,command=pass_generator)
 pg_button.place(x=window_dim_x/4 + 183,
                  y=window_dim_y/4 +entry_y_displacement +spacer_value*3-3)
 #-----------------
@@ -225,7 +243,109 @@ else:
     pg_button.config(state="normal")
 
 #______________________________________________________________________________________________________________________|
-save_data_b = Button(text="💾SAVE", font=("Times New Roma", 10, "bold"), bg="blue", fg="white",width=10,height=2,command=pass_generator)
+#SAVING DATA:
+
+def final_document_save():
+    got_website = False #"Ex: Blender.com"
+    got_email = False #"Ex: Name@gmail.com"
+    got_pass = False #"Ex: Password"
+    is_path_ready = False
+    #--------
+    global website_OUTPUT
+    website_OUTPUT = website_name.get()
+    ########
+    global email_OUTPUT
+    email_OUTPUT = email_entry.get()
+    ########
+    global generated_pass
+    global pass_OUTPUT
+    pass_OUTPUT = generated_pass
+    ########
+    global file_path
+    global path_OUTPUT
+    path_OUTPUT = file_path
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~inputs check:
+    if website_OUTPUT != "Blender.com" or website_OUTPUT != 0 or website_OUTPUT != "":
+        got_website = True
+    else:
+        warning_win_web = Tk()
+        warning_win_web.maxsize(200, 100)
+        warning_win_web.minsize(200, 100)
+        warning_win_web.title("⚠️ERROR")
+        warning_win_web.config(padx=10,pady=10)
+        #
+        website_warning_l = Label(warning_win_web, text="Please give a proper website name!")
+        website_warning_l.place(x=200/4,y=100/4)
+        #--X--X--X--#
+        def closing_web_error():
+            website_warning_l.destroy()
+            warning_win_web.destroy()
+        ####
+        warning_win_web.protocol("WM_DELETE_WINDOW", closing_web_error)
+
+    # ~~~~~~~~~~~~~
+    if email_OUTPUT != "Name@gmail.com" or website_OUTPUT != 0 or website_OUTPUT != "":
+        got_email = True
+    else:
+        warning_win_email = Tk()
+        warning_win_email.maxsize(200, 100)
+        warning_win_email.minsize(200, 100)
+        warning_win_email.title("⚠️ERROR")
+        warning_win_email.config(padx=10, pady=10)
+        #
+        website_warning_l = Label(warning_win_email, text="Please give a proper Email !")
+        website_warning_l.place(x=200 / 4, y=100 / 4)
+        # --X--X--X--#
+        def closing_email_error():
+            website_warning_l.destroy()
+            warning_win_email.destroy()
+        ####
+        warning_win_email.protocol("WM_DELETE_WINDOW", closing_email_error)
+
+    # ~~~~~~~~~~~~~
+    if pass_OUTPUT != "Password" or website_OUTPUT != 0 or website_OUTPUT != "":
+        got_pass = True
+    else:
+        warning_win_pass = Tk()
+        warning_win_pass.maxsize(200, 100)
+        warning_win_pass.minsize(200, 100)
+        warning_win_pass.title("⚠️ERROR")
+        warning_win_pass.config(padx=10, pady=10)
+        #
+        website_warning_l = Label(warning_win_pass, text="Please give a Password")
+        website_warning_l.place(x=200 / 4, y=100 / 4)
+        # --X--X--X--#
+        def closing_pass_error():
+            website_warning_l.destroy()
+            warning_win_pass.destroy()
+        ####
+        warning_win_pass.protocol("WM_DELETE_WINDOW", closing_pass_error)
+
+    # ~~~~~~~~~~~~~
+    if path_OUTPUT != "":
+        is_path_ready = True
+    else:
+        warning_win_path = Tk()
+        warning_win_path.maxsize(200, 100)
+        warning_win_path.minsize(200, 100)
+        warning_win_path.title("⚠️ERROR")
+        warning_win_path.config(padx=10, pady=10)
+        #
+        website_warning_l = Label(warning_win_path, text="Please select a saving folder")
+        website_warning_l.place(x=200 / 4, y=100 / 4)
+        # --X--X--X--#
+        def closing_path_error():
+            website_warning_l.destroy()
+            warning_win_path.destroy()
+        ####
+        warning_win_path.protocol("WM_DELETE_WINDOW", closing_path_error)
+
+
+
+
+#--------------------------------
+save_data_b = Button(text="💾SAVE", font=("Times New Roma", 10, "bold"), bg="blue", fg="white",width=10,height=2,command=final_document_save)
 save_data_b.place(x=window_dim_x/4 + 60,
                  y=window_dim_y/4 +entry_y_displacement +spacer_value*3+100)
 
