@@ -207,7 +207,7 @@ def pass_generator():
     generate_pass_b = Button(pass_gen_window ,text="GENERATE!", width=10,height=1, command=generate)
     generate_pass_b.place(x=20+center_pg_buttons,y=200)
     #######################################
-    # ##############################################################################-CHECKING IF Pass-Generate-Is ACTIVE using [ON-CLOSE] CHECK
+    # ##############################################################################-CHECKING IF Pass-Generate-Is ACTIVE using [ON-CLOSE]
     # CHECK Pass-Gen-WINDOW state:
     if pass_gen_window.state() == 'normal':
         PASS_GEN_WINDOW_Activation = True
@@ -341,7 +341,17 @@ def final_document_save():
         ####
         warning_win_path.protocol("WM_DELETE_WINDOW", closing_path_error)
 
-
+    ## -- ----------------------------- -- ##
+    if got_website and got_email and got_pass and is_path_ready: #IF ALL IS TRUE
+        website_raw_name = website_OUTPUT.replace("@","")
+        ####
+        with open(fr"{path_OUTPUT}/{website_raw_name}.txt", mode="w" ) as file:
+            file.write(f"=========================\n"
+                       f"{website_OUTPUT}-Account info save:\n\n"
+                       f"Email: {email_OUTPUT}\n"
+                       f"Password: {pass_OUTPUT}\n"
+                       "==========================\n"
+                       )
 
 
 #--------------------------------
