@@ -27,8 +27,8 @@ window.config(padx=20,pady=30)
 
 
 
-
-# ---------------------------- UI SETUP ------------------------------- #
+#### - ######## - ######## - ######## - ######## - ######## - ####
+#### - ######## - ######## - ######## - ######## - ######## - #### UI SETUP
 entry_box_width = 50
 label_displacement = -90
 entry_y_displacement = 90
@@ -49,8 +49,7 @@ logo_widget = canvas.create_image(200/2, 200/2, image = logo_img)
 canvas.place(x=window_dim_x/4,y=window_dim_y/4-150) #<-------to center it :)
 #to center anything using PLACE! just dived screen size on quarters "4"s
 
-
-
+#______________________________
 website_label = Label(text="Website:", font=FONT_tuple)
 website_label.place(x=window_dim_x/4 +label_displacement,
                     y=window_dim_y/4 +entry_y_displacement +spacer_value*1)
@@ -82,12 +81,14 @@ def browse_n_save():
         filetypes=(("Text Files", "*.txt"), ("All Files", "*.*"))
     )
 
-#### - ####
+#-------
 browse_save_l = Label(text="Save Location:", font=FONT_tuple)
-browse_save_l.place(x=110,y=235)
+browse_save_l.place(x=window_dim_x/4-40,y=window_dim_y/4+210)
 
+#-------
 browse_save_box = Entry()
 
+#-------
 browse_save_button = Button()
 
 
