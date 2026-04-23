@@ -22,8 +22,8 @@ window = Tk()
 window_dim_x = 500
 window_dim_y = 600
 window.minsize(window_dim_x,window_dim_y)
-window.minsize(window_dim_x+10,window_dim_y+10)
-window.title("Local Pass Manager 0.1")
+window.maxsize(window_dim_x+10,window_dim_y+10)
+window.title("Local Pass Sorter  0.1")
 window.config(padx=20,pady=30)
 
 
@@ -42,12 +42,12 @@ for child in window.winfo_children():
 
 
 #======================Input UIs
-canvas = Canvas(width=200, height=210)
+canvas = Canvas(width=500, height=300)
 #
 logo_img = PhotoImage(file="logo.png")
-logo_widget = canvas.create_image(200/2, 200/2, image = logo_img)
+logo_widget = canvas.create_image(500/2, 300/2, image = logo_img)
 #
-canvas.place(x=window_dim_x/4,y=window_dim_y/4-150) #<-------to center it :)
+canvas.place(x=window_dim_x/4-140,y=window_dim_y/4-180) #<-------to center it :)
 #to center anything using PLACE! just dived screen size on quarters "4"s
 
 #______________________________
@@ -245,17 +245,19 @@ else:
     er_w_padx = 10
     er_w_pady = 10
     #----
+    er_w_placex = er_w_width / 4 - 50
+    er_w_placey = er_w_height / 4
+    #----
+    er_w_font = ("Courier", 10, "bold")
+    # # ----
+    # # ----
     # er_w_icon_width = er_w_width / 2
     # er_w_icon_height = er_w_height / 2
     # #----
     # er_w_icon_placex = er_w_width / 4 - 35
     # er_w_icon_placey = er_w_height / 4
-    #----
-    #----
-    er_w_placex = er_w_width / 4 - 50
-    er_w_placey = er_w_height / 4
-    #----
-    er_w_font = ("Courier", 10, "bold")
+    # # ----
+    # # ----
 #-------------------------------------
 
 def final_document_save():
@@ -349,8 +351,6 @@ def final_document_save():
         warning_win_web.title("⚠️ERROR")
         warning_win_web.config(padx=er_w_padx, pady=er_w_pady)
         #----
-        
-        #----
         website_warning_l = Label(warning_win_web, text="Please give a proper website name", font=er_w_font)
         website_warning_l.place(x=er_w_placex, y=er_w_placey)
         # --X--X--X--#
@@ -422,7 +422,7 @@ def final_document_save():
     # ==========================================
     if not is_path_ready and not error_window_online:
         #++++
-        error_window_online = True
+        # error_window_online = True
         #++++
         warning_win_path = Tk()
         warning_win_path.maxsize(er_w_width, er_w_height)
