@@ -245,10 +245,17 @@ else:
     er_w_padx = 10
     er_w_pady = 10
     #----
-    er_w_placex = er_w_width / 4 - 35
+    # er_w_icon_width = er_w_width / 2
+    # er_w_icon_height = er_w_height / 2
+    # #----
+    # er_w_icon_placex = er_w_width / 4 - 35
+    # er_w_icon_placey = er_w_height / 4
+    #----
+    #----
+    er_w_placex = er_w_width / 4 - 50
     er_w_placey = er_w_height / 4
     #----
-    er_w_font = ("Courier", 8, "bold")
+    er_w_font = ("Courier", 10, "bold")
 #-------------------------------------
 
 def final_document_save():
@@ -317,7 +324,7 @@ def final_document_save():
         file_saved_l = Label(file_saved_win, text="Your info & pass were locally saved in", font=er_w_font)
         file_saved_l.place(x=er_w_placex, y=er_w_placey)
         #
-        file_saved_entry = Entry(file_saved_win, width=er_w_height-40)
+        file_saved_entry = Entry(file_saved_win, width=er_w_height-100)
         file_saved_entry.insert(END, f"{path_OUTPUT}")
         file_saved_entry.place(x=er_w_placex, y=er_w_placey)
 
@@ -341,8 +348,10 @@ def final_document_save():
         warning_win_web.minsize(er_w_width, er_w_height)
         warning_win_web.title("⚠️ERROR")
         warning_win_web.config(padx=er_w_padx, pady=er_w_pady)
-        #
-        website_warning_l = Label(warning_win_web, text="Please give a proper website name!", font=er_w_font)
+        #----
+        
+        #----
+        website_warning_l = Label(warning_win_web, text="Please give a proper website name", font=er_w_font)
         website_warning_l.place(x=er_w_placex, y=er_w_placey)
         # --X--X--X--#
         def closing_web_error():
@@ -362,7 +371,7 @@ def final_document_save():
         warning_win_email.title("⚠️ERROR")
         warning_win_email.config(padx=er_w_padx, pady=er_w_pady)
         #
-        website_warning_l = Label(warning_win_email, text="Please give a proper Email !", font=er_w_font)
+        website_warning_l = Label(warning_win_email, text="Please give a proper Email", font=er_w_font)
         website_warning_l.place(x=er_w_placex, y=er_w_placey)
         # --X--X--X--#
         def closing_email_error():
@@ -401,7 +410,7 @@ def final_document_save():
         warning_win_pass.title("⚠️ERROR")
         warning_win_pass.config(padx=er_w_padx, pady=er_w_pady)
         #
-        website_warning_l = Label(warning_win_pass, text="Please give a Password", font=er_w_font)
+        website_warning_l = Label(warning_win_pass, text="Please give a proper Password", font=er_w_font)
         website_warning_l.place(x=er_w_placex, y=er_w_placey)
         # --X--X--X--#
         def closing_pass_error():
