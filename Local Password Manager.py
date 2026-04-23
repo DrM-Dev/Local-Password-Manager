@@ -26,13 +26,6 @@ window.minsize(window_dim_x+10,window_dim_y+10)
 window.title("Local Pass Manager 0.1")
 window.config(padx=20,pady=30)
 
-# ---------------------------- PASSWORD GENERATOR ------------------------------- #
-
-
-
-
-# ---------------------------- SAVE PASSWORD ------------------------------- #
-
 
 
 #### - ######## - ######## - ######## - ######## - ######## - ####
@@ -66,6 +59,7 @@ website_name = Entry(width=entry_box_width)
 website_name.insert(END, "Ex: Blender.com")
 website_name.place(x=window_dim_x/4,
                    y=window_dim_y/4 +entry_y_displacement +spacer_value*1)
+website_name.focus() #nice
 
 #______________________________
 email_label = Label(text="Email:", font=FONT_tuple)
@@ -246,10 +240,10 @@ else:
 #SAVING DATA:
 
 def final_document_save():
-    got_website = False #"Ex: Blender.com"
-    got_email = False #"Ex: Name@gmail.com"
-    got_pass = False #"Ex: Password"
-    is_path_ready = False
+    # got_website = False #"Ex: Blender.com"
+    # got_email = False #"Ex: Name@gmail.com"
+    # got_pass = False #"Ex: Password"
+    # is_path_ready = False
     #--------
     global website_OUTPUT
     website_OUTPUT = website_name.get()
@@ -266,74 +260,113 @@ def final_document_save():
     path_OUTPUT = file_path
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~inputs check:
-    if website_OUTPUT != "Blender.com" or website_OUTPUT != 0 or website_OUTPUT != "":
+    if website_OUTPUT != "Ex: Blender.com" and website_OUTPUT != 0 and website_OUTPUT != "":
         got_website = True
     else:
+        got_website = False
+
+    # ~~~~~~~~~~~~~
+    if email_OUTPUT != "Ex: Name@gmail.com" and website_OUTPUT != 0 and website_OUTPUT != "":
+        got_email = True
+    else:
+        got_email = False
+
+    # ~~~~~~~~~~~~~
+    if pass_OUTPUT != "Ex: Password" and website_OUTPUT != 0 and website_OUTPUT != "":
+        got_pass = True
+    else:
+        got_pass = False
+
+    # ~~~~~~~~~~~~~
+    if path_OUTPUT != "":
+        is_path_ready = True
+    else:
+        is_path_ready = False
+
+    ## -- ----------------------------- -- ##
+    if got_website and got_email and got_pass and is_path_ready: #IF ALL IS TRUE
+        website_raw_name = website_OUTPUT.replace("@","")
+        file_name_refine_1 = website_raw_name.replace(".com", "")
+        ####
+        with open(fr"{path_OUTPUT}/{file_name_refine_1}.txt", mode="w" ) as file:
+            file.write(f"================================\n"
+                       f"{website_OUTPUT}-Account info save:\n\n"
+                       f"Email:     | {email_OUTPUT}\n"
+                       f"Password:  | {pass_OUTPUT}\n"
+                       "=================================\n"
+                       )
+    #==========================================================================
+    #======================================ERRORS:
+    #Error windows dimensions:
+    er_w_width = 300
+    er_w_height = 100
+    #----
+    er_w_padx = 10
+    er_w_pady = 10
+    #----
+    er_w_placex = er_w_width / 4 - 35
+    er_w_placey = er_w_height / 4
+    #----
+    er_w_font = ("Courier", 8, "bold")
+
+    #============================================
+    if not got_website:  # WEBSITE-ERROR:
         warning_win_web = Tk()
-        warning_win_web.maxsize(200, 100)
-        warning_win_web.minsize(200, 100)
+        warning_win_web.maxsize(er_w_width, er_w_height)
+        warning_win_web.minsize(er_w_width, er_w_height)
         warning_win_web.title("⚠️ERROR")
-        warning_win_web.config(padx=10,pady=10)
+        warning_win_web.config(padx=er_w_padx, pady=er_w_pady)
         #
-        website_warning_l = Label(warning_win_web, text="Please give a proper website name!")
-        website_warning_l.place(x=200/4,y=100/4)
-        #--X--X--X--#
+        website_warning_l = Label(warning_win_web, text="Please give a proper website name!", font=er_w_font)
+        website_warning_l.place(x=er_w_placex, y=er_w_placey)
+        # --X--X--X--#
         def closing_web_error():
             website_warning_l.destroy()
             warning_win_web.destroy()
         ####
         warning_win_web.protocol("WM_DELETE_WINDOW", closing_web_error)
-
-    # ~~~~~~~~~~~~~
-    if email_OUTPUT != "Name@gmail.com" or website_OUTPUT != 0 or website_OUTPUT != "":
-        got_email = True
-    else:
+    #==========================================
+    if not got_email:  # EMAIL-ERROR:
         warning_win_email = Tk()
-        warning_win_email.maxsize(200, 100)
-        warning_win_email.minsize(200, 100)
+        warning_win_email.maxsize(er_w_width, er_w_height)
+        warning_win_email.minsize(er_w_width, er_w_height)
         warning_win_email.title("⚠️ERROR")
-        warning_win_email.config(padx=10, pady=10)
+        warning_win_email.config(padx=er_w_padx, pady=er_w_pady)
         #
-        website_warning_l = Label(warning_win_email, text="Please give a proper Email !")
-        website_warning_l.place(x=200 / 4, y=100 / 4)
+        website_warning_l = Label(warning_win_email, text="Please give a proper Email !", font=er_w_font)
+        website_warning_l.place(x=er_w_placex, y=er_w_placey)
         # --X--X--X--#
         def closing_email_error():
             website_warning_l.destroy()
             warning_win_email.destroy()
         ####
         warning_win_email.protocol("WM_DELETE_WINDOW", closing_email_error)
-
-    # ~~~~~~~~~~~~~
-    if pass_OUTPUT != "Password" or website_OUTPUT != 0 or website_OUTPUT != "":
-        got_pass = True
-    else:
+    #==========================================
+    if not got_pass:
         warning_win_pass = Tk()
-        warning_win_pass.maxsize(200, 100)
-        warning_win_pass.minsize(200, 100)
+        warning_win_pass.maxsize(er_w_width, er_w_height)
+        warning_win_pass.minsize(er_w_width, er_w_height)
         warning_win_pass.title("⚠️ERROR")
-        warning_win_pass.config(padx=10, pady=10)
+        warning_win_pass.config(padx=er_w_padx, pady=er_w_pady)
         #
-        website_warning_l = Label(warning_win_pass, text="Please give a Password")
-        website_warning_l.place(x=200 / 4, y=100 / 4)
+        website_warning_l = Label(warning_win_pass, text="Please give a Password", font=er_w_font)
+        website_warning_l.place(x=er_w_placex, y=er_w_placey)
         # --X--X--X--#
         def closing_pass_error():
             website_warning_l.destroy()
             warning_win_pass.destroy()
         ####
         warning_win_pass.protocol("WM_DELETE_WINDOW", closing_pass_error)
-
-    # ~~~~~~~~~~~~~
-    if path_OUTPUT != "":
-        is_path_ready = True
-    else:
+    # ==========================================
+    if not is_path_ready:
         warning_win_path = Tk()
-        warning_win_path.maxsize(200, 100)
-        warning_win_path.minsize(200, 100)
+        warning_win_path.maxsize(er_w_width, er_w_height)
+        warning_win_path.minsize(er_w_width, er_w_height)
         warning_win_path.title("⚠️ERROR")
-        warning_win_path.config(padx=10, pady=10)
+        warning_win_path.config(padx=er_w_padx, pady=er_w_pady)
         #
-        website_warning_l = Label(warning_win_path, text="Please select a saving folder")
-        website_warning_l.place(x=200 / 4, y=100 / 4)
+        website_warning_l = Label(warning_win_path, text="Please select a saving folder", font=er_w_font)
+        website_warning_l.place(x=er_w_placex, y=er_w_placey)
         # --X--X--X--#
         def closing_path_error():
             website_warning_l.destroy()
@@ -341,20 +374,8 @@ def final_document_save():
         ####
         warning_win_path.protocol("WM_DELETE_WINDOW", closing_path_error)
 
-    ## -- ----------------------------- -- ##
-    if got_website and got_email and got_pass and is_path_ready: #IF ALL IS TRUE
-        website_raw_name = website_OUTPUT.replace("@","")
-        ####
-        with open(fr"{path_OUTPUT}/{website_raw_name}.txt", mode="w" ) as file:
-            file.write(f"=========================\n"
-                       f"{website_OUTPUT}-Account info save:\n\n"
-                       f"Email: {email_OUTPUT}\n"
-                       f"Password: {pass_OUTPUT}\n"
-                       "==========================\n"
-                       )
 
-
-#--------------------------------
+#==========================SAVE-BUTTON:
 save_data_b = Button(text="💾SAVE", font=("Times New Roma", 10, "bold"), bg="blue", fg="white",width=10,height=2,command=final_document_save)
 save_data_b.place(x=window_dim_x/4 + 60,
                  y=window_dim_y/4 +entry_y_displacement +spacer_value*3+100)
