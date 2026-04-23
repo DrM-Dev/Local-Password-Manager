@@ -5,3 +5,6 @@ this simple program allows you to write down the essential account info related 
 it comes with an advance password generator (also made by me)
 that allows you to add letters, numbers and symbols 
 :)
+_________________
+*this python project was made using Tkinter GUI module
+*no other modules required if you want to edit this code
