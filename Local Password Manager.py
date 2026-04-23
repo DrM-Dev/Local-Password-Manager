@@ -244,6 +244,7 @@ def final_document_save():
     # got_email = False #"Ex: Name@gmail.com"
     # got_pass = False #"Ex: Password"
     # is_path_ready = False
+    error_window_online = False
     #--------
     global website_OUTPUT
     website_OUTPUT = website_name.get()
@@ -266,13 +267,13 @@ def final_document_save():
         got_website = False
 
     # ~~~~~~~~~~~~~
-    if email_OUTPUT != "Ex: Name@gmail.com" and website_OUTPUT != 0 and website_OUTPUT != "":
+    if email_OUTPUT != "Ex: Name@gmail.com" and email_OUTPUT != 0 and email_OUTPUT != "":
         got_email = True
     else:
         got_email = False
 
     # ~~~~~~~~~~~~~
-    if pass_OUTPUT != "Ex: Password" and website_OUTPUT != 0 and website_OUTPUT != "":
+    if pass_OUTPUT != "Ex: Password" and pass_OUTPUT != 0 and pass_OUTPUT != "":
         got_pass = True
     else:
         got_pass = False
@@ -310,7 +311,10 @@ def final_document_save():
     er_w_font = ("Courier", 8, "bold")
 
     #============================================
-    if not got_website:  # WEBSITE-ERROR:
+    if not got_website and not error_window_online:  # WEBSITE-ERROR:
+        #++++
+        error_window_online = True
+        #++++
         warning_win_web = Tk()
         warning_win_web.maxsize(er_w_width, er_w_height)
         warning_win_web.minsize(er_w_width, er_w_height)
@@ -326,7 +330,10 @@ def final_document_save():
         ####
         warning_win_web.protocol("WM_DELETE_WINDOW", closing_web_error)
     #==========================================
-    if not got_email:  # EMAIL-ERROR:
+    if not got_email and not error_window_online:  # EMAIL-ERROR:
+        #++++
+        error_window_online = True
+        #++++
         warning_win_email = Tk()
         warning_win_email.maxsize(er_w_width, er_w_height)
         warning_win_email.minsize(er_w_width, er_w_height)
@@ -342,7 +349,10 @@ def final_document_save():
         ####
         warning_win_email.protocol("WM_DELETE_WINDOW", closing_email_error)
     #==========================================
-    if not got_pass:
+    if not got_pass and not error_window_online:
+        #++++
+        error_window_online = True
+        #++++
         warning_win_pass = Tk()
         warning_win_pass.maxsize(er_w_width, er_w_height)
         warning_win_pass.minsize(er_w_width, er_w_height)
@@ -358,7 +368,10 @@ def final_document_save():
         ####
         warning_win_pass.protocol("WM_DELETE_WINDOW", closing_pass_error)
     # ==========================================
-    if not is_path_ready:
+    if not is_path_ready and not error_window_online:
+        #++++
+        error_window_online = True
+        #++++
         warning_win_path = Tk()
         warning_win_path.maxsize(er_w_width, er_w_height)
         warning_win_path.minsize(er_w_width, er_w_height)
