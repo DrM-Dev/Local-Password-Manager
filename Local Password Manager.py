@@ -205,7 +205,7 @@ def pass_generator():
     # CHECK Pass-Gen-WINDOW state:
     if pass_gen_window.state() == 'normal':
         PASS_GEN_WINDOW_Activation = True
-        print("\nPASS-GEN-WINDOW ACTIVATED + ")
+        # print("\nPASS-GEN-WINDOW ACTIVATED + ")
         pg_button.config(state="disabled")
     # if pass_gen_window.state() == 'disabled':  <---------------------NO NEED FOR THIS, it's better to DISABLE the Pass-Gen-Button from the "[ON-CLOSE] CHECK"
     #     PASS_GEN_WINDOW_Activation = False
@@ -216,7 +216,7 @@ def pass_generator():
     def on_closing():
         global PASS_GEN_WINDOW_Activation
         PASS_GEN_WINDOW_Activation = False
-        print("PASS-GEN-Window is closing")
+        # print("PASS-GEN-Window is closing")
         pg_button.config(state="normal")
         #----#
         pass_gen_window.destroy()
@@ -238,6 +238,18 @@ else:
 
 #______________________________________________________________________________________________________________________|
 #SAVING DATA:
+#Error windows dimensions:
+    er_w_width = 350
+    er_w_height = 100
+    #----
+    er_w_padx = 10
+    er_w_pady = 10
+    #----
+    er_w_placex = er_w_width / 4 - 35
+    er_w_placey = er_w_height / 4
+    #----
+    er_w_font = ("Courier", 8, "bold")
+#-------------------------------------
 
 def final_document_save():
     # got_website = False #"Ex: Blender.com"
@@ -252,9 +264,8 @@ def final_document_save():
     global email_OUTPUT
     email_OUTPUT = email_entry.get()
     ########
-    global generated_pass
     global pass_OUTPUT
-    pass_OUTPUT = generated_pass
+    pass_OUTPUT = pass_entry.get()
     ########
     global file_path
     global path_OUTPUT
@@ -273,7 +284,7 @@ def final_document_save():
         got_email = False
 
     # ~~~~~~~~~~~~~
-    if pass_OUTPUT != "Ex: Password" and pass_OUTPUT != 0 and pass_OUTPUT != "":
+    if pass_OUTPUT != "Ex: Password" and pass_OUTPUT != 0 and pass_OUTPUT != "" and len(pass_OUTPUT) > 4:
         got_pass = True
     else:
         got_pass = False
@@ -296,20 +307,30 @@ def final_document_save():
                        f"Password:  | {pass_OUTPUT}\n"
                        "=================================\n"
                        )
+        ###############
+        file_saved_win = Tk()
+        file_saved_win.maxsize(er_w_width + 40, er_w_height)
+        file_saved_win.minsize(er_w_width + 40, er_w_height)
+        file_saved_win.title("💾FILE SAVED!")
+        file_saved_win.config(padx=er_w_padx, pady=er_w_pady)
+        #
+        file_saved_l = Label(file_saved_win, text="Your info & pass were locally saved in", font=er_w_font)
+        file_saved_l.place(x=er_w_placex, y=er_w_placey)
+        #
+        file_saved_entry = Entry(file_saved_win, width=er_w_height-40)
+        file_saved_entry.insert(END, f"{path_OUTPUT}")
+        file_saved_entry.place(x=er_w_placex, y=er_w_placey)
+
+        # --X--X--X--#
+        def closing_saved_win():
+            website_warning_l.destroy()
+            file_saved_win.destroy()
+
+        ####
+        file_saved_win.protocol("WM_DELETE_WINDOW", closing_saved_win)
+
     #==========================================================================
     #======================================ERRORS:
-    #Error windows dimensions:
-    er_w_width = 300
-    er_w_height = 100
-    #----
-    er_w_padx = 10
-    er_w_pady = 10
-    #----
-    er_w_placex = er_w_width / 4 - 35
-    er_w_placey = er_w_height / 4
-    #----
-    er_w_font = ("Courier", 8, "bold")
-
     #============================================
     if not got_website and not error_window_online:  # WEBSITE-ERROR:
         #++++
@@ -329,6 +350,7 @@ def final_document_save():
             warning_win_web.destroy()
         ####
         warning_win_web.protocol("WM_DELETE_WINDOW", closing_web_error)
+
     #==========================================
     if not got_email and not error_window_online:  # EMAIL-ERROR:
         #++++
@@ -348,7 +370,27 @@ def final_document_save():
             warning_win_email.destroy()
         ####
         warning_win_email.protocol("WM_DELETE_WINDOW", closing_email_error)
+
     #==========================================
+    if not got_pass and not error_window_online and len(str(pass_OUTPUT)) < 4:
+        # ++++
+        error_window_online = True
+        # ++++
+        warning_win_pass = Tk()
+        warning_win_pass.maxsize(er_w_width, er_w_height)
+        warning_win_pass.minsize(er_w_width, er_w_height)
+        warning_win_pass.title("⚠️ERROR")
+        warning_win_pass.config(padx=er_w_padx, pady=er_w_pady)
+        #
+        website_warning_l = Label(warning_win_pass, text="Please give a LONGER Password", font=er_w_font)
+        website_warning_l.place(x=er_w_placex, y=er_w_placey)
+        # --X--X--X--#
+        def closing_pass_error():
+            website_warning_l.destroy()
+            warning_win_pass.destroy()
+        ####
+        warning_win_pass.protocol("WM_DELETE_WINDOW", closing_pass_error)
+    # +++++++++++++++++++++++++ #
     if not got_pass and not error_window_online:
         #++++
         error_window_online = True
@@ -367,6 +409,7 @@ def final_document_save():
             warning_win_pass.destroy()
         ####
         warning_win_pass.protocol("WM_DELETE_WINDOW", closing_pass_error)
+
     # ==========================================
     if not is_path_ready and not error_window_online:
         #++++
