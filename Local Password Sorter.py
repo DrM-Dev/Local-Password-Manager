@@ -1,4 +1,4 @@
-#Local Password Manager - v0.1   -    by:   Dr.M-Dev
+#Local Password Sorter - v0.1   -    by:   Dr.M-Dev
 #===================Imports
 from tkinter import *
 from tkinter import filedialog
@@ -45,10 +45,10 @@ for child in window.winfo_children():
 #======================Input UIs
 canvas = Canvas(width=500, height=300)
 #
-ico_img = PhotoImage(file="ico.png")
+ico_img = PhotoImage(file=r"images/ico.png")
 ico_widget = canvas.create_image(500/2, 300/2, image = ico_img)
 #
-logo_img = PhotoImage(file="logo.png")
+logo_img = PhotoImage(file=r"images/logo.png")
 logo_widget = canvas.create_image(50, 50, image = logo_img)
 #
 canvas.place(x=window_dim_x/4-140,y=window_dim_y/4-180) #<-------to center it :)
