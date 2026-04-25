@@ -336,7 +336,6 @@ def final_document_save():
 
         # --X--X--X--#
         def closing_saved_win():
-            website_warning_l.destroy()
             file_saved_win.destroy()
 
         ####
@@ -359,7 +358,6 @@ def final_document_save():
         website_warning_l.place(x=er_w_placex, y=er_w_placey)
         # --X--X--X--#
         def closing_web_error():
-            website_warning_l.destroy()
             warning_win_web.destroy()
         ####
         warning_win_web.protocol("WM_DELETE_WINDOW", closing_web_error)
@@ -379,7 +377,6 @@ def final_document_save():
         website_warning_l.place(x=er_w_placex, y=er_w_placey)
         # --X--X--X--#
         def closing_email_error():
-            website_warning_l.destroy()
             warning_win_email.destroy()
         ####
         warning_win_email.protocol("WM_DELETE_WINDOW", closing_email_error)
@@ -399,7 +396,6 @@ def final_document_save():
         website_warning_l.place(x=er_w_placex, y=er_w_placey)
         # --X--X--X--#
         def closing_pass_error():
-            website_warning_l.destroy()
             warning_win_pass.destroy()
         ####
         warning_win_pass.protocol("WM_DELETE_WINDOW", closing_pass_error)
@@ -418,7 +414,6 @@ def final_document_save():
         website_warning_l.place(x=er_w_placex, y=er_w_placey)
         # --X--X--X--#
         def closing_pass_error():
-            website_warning_l.destroy()
             warning_win_pass.destroy()
         ####
         warning_win_pass.protocol("WM_DELETE_WINDOW", closing_pass_error)
@@ -438,7 +433,6 @@ def final_document_save():
         website_warning_l.place(x=er_w_placex, y=er_w_placey)
         # --X--X--X--#
         def closing_path_error():
-            website_warning_l.destroy()
             warning_win_path.destroy()
         ####
         warning_win_path.protocol("WM_DELETE_WINDOW", closing_path_error)
