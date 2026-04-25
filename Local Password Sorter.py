@@ -327,8 +327,8 @@ def final_document_save():
         file_saved_win.title("💾FILE SAVED!")
         file_saved_win.config(padx=er_w_padx, pady=er_w_pady)
         #
-        file_saved_l = Label(file_saved_win, text="Your info & pass were locally saved in", font=er_w_font)
-        file_saved_l.place(x=er_w_placex, y=er_w_placey)
+        file_saved_l = Label(file_saved_win, text="Your info & pass were locally saved in:", font=er_w_font)
+        file_saved_l.place(x=er_w_placex, y=er_w_placey-22)
         #
         file_saved_entry = Entry(file_saved_win, width=er_w_height-100)
         file_saved_entry.insert(END, f"{path_OUTPUT}")
