@@ -327,8 +327,8 @@ def final_document_save():
         file_saved_win.title("💾FILE SAVED!")
         file_saved_win.config(padx=er_w_padx, pady=er_w_pady)
         #
-        file_saved_l = Label(file_saved_win, text="Your info & pass were locally saved in", font=er_w_font)
-        file_saved_l.place(x=er_w_placex, y=er_w_placey)
+        file_saved_l = Label(file_saved_win, text="Your info & pass were locally saved in:", font=er_w_font)
+        file_saved_l.place(x=er_w_placex, y=er_w_placey-22)
         #
         file_saved_entry = Entry(file_saved_win, width=er_w_height-100)
         file_saved_entry.insert(END, f"{path_OUTPUT}")
@@ -336,7 +336,6 @@ def final_document_save():
 
         # --X--X--X--#
         def closing_saved_win():
-            website_warning_l.destroy()
             file_saved_win.destroy()
 
         ####
@@ -359,7 +358,6 @@ def final_document_save():
         website_warning_l.place(x=er_w_placex, y=er_w_placey)
         # --X--X--X--#
         def closing_web_error():
-            website_warning_l.destroy()
             warning_win_web.destroy()
         ####
         warning_win_web.protocol("WM_DELETE_WINDOW", closing_web_error)
@@ -379,7 +377,6 @@ def final_document_save():
         website_warning_l.place(x=er_w_placex, y=er_w_placey)
         # --X--X--X--#
         def closing_email_error():
-            website_warning_l.destroy()
             warning_win_email.destroy()
         ####
         warning_win_email.protocol("WM_DELETE_WINDOW", closing_email_error)
@@ -399,7 +396,6 @@ def final_document_save():
         website_warning_l.place(x=er_w_placex, y=er_w_placey)
         # --X--X--X--#
         def closing_pass_error():
-            website_warning_l.destroy()
             warning_win_pass.destroy()
         ####
         warning_win_pass.protocol("WM_DELETE_WINDOW", closing_pass_error)
@@ -418,7 +414,6 @@ def final_document_save():
         website_warning_l.place(x=er_w_placex, y=er_w_placey)
         # --X--X--X--#
         def closing_pass_error():
-            website_warning_l.destroy()
             warning_win_pass.destroy()
         ####
         warning_win_pass.protocol("WM_DELETE_WINDOW", closing_pass_error)
@@ -438,7 +433,6 @@ def final_document_save():
         website_warning_l.place(x=er_w_placex, y=er_w_placey)
         # --X--X--X--#
         def closing_path_error():
-            website_warning_l.destroy()
             warning_win_path.destroy()
         ####
         warning_win_path.protocol("WM_DELETE_WINDOW", closing_path_error)
